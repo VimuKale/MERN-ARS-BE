@@ -12,7 +12,7 @@ const {
   handleSoftDeleteUserByID,
 } = require("../controller/userController");
 
-router.get("/user", isValidID, handleGetUserByID);
+router.get("/user", authenticateToken, isValidID, handleGetUserByID);
 router.post("/signup", validatePassword, handleSignUp);
 router.patch("/edit", authenticateToken, isValidID, handleUpdateUserByID);
 router.delete(

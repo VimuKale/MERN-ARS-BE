@@ -3,7 +3,7 @@ const express = require("express");
 require("./db/connection");
 const cors = require("cors");
 const PORT = process.env.PORT || 3001;
-
+const { getFileStream } = require("./s3");
 const app = express();
 
 app.use(cors());
@@ -13,6 +13,13 @@ app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Ganpati Bappa Morya!");
+});
+
+app.get("/images/:key", (req, res) => {
+  console.log("hii");
+  const key = req.params.key;
+  const readStream = getFileStream(key);
+  readStream.pipe(res);
 });
 
 //LOGIN USER(S)
@@ -30,6 +37,10 @@ app.use("/shelters", shelterRouter);
 // ADMIN ROUTER
 const adminRouter = require("./routes/admins");
 app.use("/admins", adminRouter);
+
+// RESCUE REQUEST ROUTER
+const rescueRequestRouter = require("./routes/rescuerequest");
+app.use("/rr", rescueRequestRouter);
 
 app.listen(PORT, () => {
   console.log(`Server Listening On Port: ${PORT}`);

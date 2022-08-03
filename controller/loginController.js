@@ -32,7 +32,7 @@ const userLogin = async (email, password, req, res) => {
     // console.log(loginDetails);
     if (loginDetails) {
       const isMatch = await bcrypt.compare(password, loginDetails.password);
-      console.log(isMatch);
+      // console.log(isMatch);
       if (!isMatch) {
         res
           .status(400)
@@ -42,7 +42,7 @@ const userLogin = async (email, password, req, res) => {
           loginDetails.toJSON(),
           process.env.ACCESS_TOKEN_SECRET
         );
-        console.log(accessToken);
+        // console.log(accessToken);
 
         res.status(200).json({
           success: true,
@@ -65,6 +65,8 @@ const shelterLogin = async (email, password, req, res) => {
       email: email,
       isActive: true,
     });
+
+    // console.log(loginDetails);
 
     if (loginDetails) {
       const isMatch = await bcrypt.compare(password, loginDetails.password);

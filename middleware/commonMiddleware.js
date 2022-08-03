@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 require("dotenv").config();
+
 const isValidID = (req, res, next) => {
   const id = req.query.id;
   if (!id) {
@@ -12,9 +13,24 @@ const isValidID = (req, res, next) => {
   } else if (!ObjectId.isValid(id)) {
     res.status(400).json({ success: false, message: "Pass A Valid ID" });
   } else {
+    console.log("true");
     next();
   }
 };
+
+// const isValidFDID = (req, res, next) => {
+//   console.log(req);
+//   const { id } = req.body;
+//   if (!id) {
+//     res
+//       .status(400)
+//       .json({ success: false, message: "ID Field Cannot Be Empty" });
+//   } else if (!ObjectId.isValid(id)) {
+//     res.status(400).json({ success: false, message: "Pass A Valid ID" });
+//   } else {
+//     next();
+//   }
+// };
 
 const validatePhone = (phone) => {
   const regex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
@@ -93,6 +109,7 @@ const authenticateToken = (req, res, next) => {
 module.exports = {
   validateLoginDetails,
   isValidID,
+  // isValidFDID,
   validatePhone,
   validatePassword,
   authenticateToken,

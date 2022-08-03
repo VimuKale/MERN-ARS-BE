@@ -124,7 +124,8 @@ const handleUpdateUserByID = async (req, res) => {
   }
 };
 
-// SOFT DELETE USER
+
+  // SOFT DELETE USER
 // -------------------------------------------------------------------------
 const handleSoftDeleteUserByID = async (req, res) => {
   try {

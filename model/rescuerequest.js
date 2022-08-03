@@ -9,6 +9,20 @@ const rescueRequestSchema = new mongoose.Schema(
       required: true,
       ref: "User",
     },
+    acceptedBy: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "Shelter",
+      default: null,
+    },
+    status: {
+      type: "String",
+      required: true,
+      default: "pending",
+    },
+    email: {
+      type: String,
+      required: [true, "User Email Is Required For Rescue Request"],
+    },
     animal_type: {
       type: String,
       required: [true, "Animal Type Field Is Required"],
@@ -53,6 +67,10 @@ const rescueRequestSchema = new mongoose.Schema(
     photo: {
       type: String,
       default: null,
+    },
+    isActive: {
+      type: Boolean,
+      default: true,
     },
   },
   { timestamps: true }
