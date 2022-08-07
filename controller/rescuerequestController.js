@@ -23,7 +23,8 @@ const handleDuplicateField = (err) => {
 };
 
 let mailTransporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
+  // host: "smtp.gmail.com",
+  service: "gmail",
   PORT: 465,
   secure: true,
   auth: {
@@ -226,7 +227,7 @@ const handleUpdateRR = async (req, res) => {
 const handleDeleteRR = async (req, res) => {
   try {
     const deletedRR = await RescueRequest.findByIdAndUpdate(
-      { _id: req.body.id },
+      { _id: req.query.id },
       { isActive: false },
       { new: true }
     );
@@ -252,7 +253,9 @@ const handleDeleteRR = async (req, res) => {
 
 const handleGetAllRR = async (req, res) => {
   try {
-    const rescuerequests = await RescueRequest.find({ isActive: true });
+    const rescuerequests = await RescueRequest.find({
+      isActive: true,
+    }).populate("requestBy");
     if (!rescuerequests) {
       res
         .status(404)
@@ -279,9 +282,11 @@ const handleGetShelterRR = async (req, res) => {
   try {
     const rescuerequests = await RescueRequest.find({
       acceptedBy: req.query.id,
-    }).where({
-      isActive: true,
-    });
+    })
+      .where({
+        isActive: true,
+      })
+      .populate("requestBy");
 
     if (!rescuerequests) {
       res

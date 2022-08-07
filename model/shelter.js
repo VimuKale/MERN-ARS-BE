@@ -22,7 +22,7 @@ const shelterSchema = new mongoose.Schema(
     s_phone: {
       type: String,
       required: [true, "Phone Number Is Required"],
-      unique: [true, "Phone Number Already Exists"],
+      // unique: [true, "Phone Number Already Exists"],
       validate: [validatePhone, "Phone Number Must Be Of 10 Digits"],
     },
     email: {

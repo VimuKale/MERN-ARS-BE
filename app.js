@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/images/:key", (req, res) => {
-  console.log("hii");
+  // console.log("hii");
   const key = req.params.key;
   const readStream = getFileStream(key);
   readStream.pipe(res);

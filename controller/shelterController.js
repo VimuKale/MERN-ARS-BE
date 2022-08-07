@@ -35,7 +35,7 @@ const handleSignUp = async (req, res) => {
   } = req.body;
 
   try {
-    const shelter = await Shelter({
+    const shelterData = await Shelter({
       s_name,
       s_phone,
       s_category,
@@ -48,7 +48,11 @@ const handleSignUp = async (req, res) => {
       user_type,
     });
 
-    const newShelter = await shelter.save();
+    // console.log(shelterData);
+
+    const newShelter = await shelterData.save();
+
+    // console.log(newShelter);
 
     res.status(201).json({
       success: true,
@@ -56,6 +60,7 @@ const handleSignUp = async (req, res) => {
       payload: newShelter,
     });
   } catch (e) {
+    // console.log(e);
     let message = "something went wrong";
     if (e.code === 11000) message = handleDuplicateField(e);
     if (e.name === "ValidationError") message = handleValidationError(e);

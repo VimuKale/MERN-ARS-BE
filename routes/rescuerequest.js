@@ -28,7 +28,7 @@ router.post(
 
 router.post("/acceptrr", authenticateToken, handleAcceptRR);
 
-router.post("/updaterr", authenticateToken, handleUpdateRR);
+router.patch("/updaterr", authenticateToken, handleUpdateRR);
 
 router.delete("/softdeleterr", authenticateToken, handleDeleteRR);
 
