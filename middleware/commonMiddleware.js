@@ -6,6 +6,7 @@ require("dotenv").config();
 
 const isValidID = (req, res, next) => {
   const id = req.query.id;
+  console.log(id);
   if (!id) {
     res
       .status(400)
@@ -72,6 +73,30 @@ const validatePassword = (req, res, next) => {
   }
 };
 
+const validateRVPassword = (req, res, next) => {
+  // console.log(req);
+  const password = req.body.password;
+  if (password) {
+    if (!validatePasswordExp(password)) {
+      res.status(400).json({
+        success: false,
+        message:
+          "Password must contain a special character, one lowercase & Uppercase character and atleast one number and length between 8-32",
+      });
+    } else {
+      const passwordHash = async (password) => {
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(password, salt);
+        req.body.password = hash;
+        next();
+      };
+      passwordHash(password);
+    }
+  } else {
+    next();
+  }
+};
+
 const validateLoginDetails = (req, res, next) => {
   const { email, password, type } = req.body;
   if (Object.keys(req.body).length === 0) {
@@ -113,6 +138,7 @@ module.exports = {
   validateLoginDetails,
   isValidID,
   // isValidFDID,
+  validateRVPassword,
   validatePhone,
   validatePassword,
   authenticateToken,

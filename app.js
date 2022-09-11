@@ -42,6 +42,14 @@ app.use("/admins", adminRouter);
 const rescueRequestRouter = require("./routes/rescuerequest");
 app.use("/rr", rescueRequestRouter);
 
+// RESCUE VAN ROUTER
+const rescueVanRouter = require("./routes/rescuevan");
+app.use("/rv", rescueVanRouter);
+
+// GALLERY ROUTER
+const galleryRouter = require("./routes/gallery");
+app.use("/gallery", galleryRouter);
+
 app.listen(PORT, () => {
   console.log(`Server Listening On Port: ${PORT}`);
 });

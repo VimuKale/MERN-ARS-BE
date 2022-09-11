@@ -56,19 +56,23 @@ const rescueVanSchema = new mongoose.Schema(
     user_type: {
       type: String,
       required: [true, "User Type Field Is Must"],
-      default: "rescuevan",
+      default: "RESCUEVAN",
     },
-    VehicleNo: {
+    vehicleNo: {
       type: String,
       required: [true, "Vehicle Number Field Is Required"],
     },
-    vehicle_Desc: {
+    vehicleDesc: {
       type: String,
       required: [true, "Vehicle Description Field Is Required"],
     },
     vehiclephoto: {
       type: String,
       default: null,
+    },
+    status: {
+      type: String,
+      default: "Available",
     },
     isActive: {
       type: Boolean,

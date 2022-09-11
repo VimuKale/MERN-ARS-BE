@@ -2,7 +2,7 @@ const RescueRequest = require("../model/rescuerequest");
 const fs = require("fs");
 const util = require("util");
 const unlinkFile = util.promisify(fs.unlink);
-const { uploadFile, getFileStream } = require("../s3");
+const { uploadFile } = require("../s3");
 const nodemailer = require("nodemailer");
 
 //ERROR HANDLERS
